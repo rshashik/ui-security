@@ -1,0 +1,12 @@
+node_modules
+dist
+es
+docs/build
+*.log
+.idea
+.DS_Store
+.history
+.vscode
+package-lock.json
+coverage
+.docz
