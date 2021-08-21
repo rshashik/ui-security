@@ -6,6 +6,7 @@ module.exports = {
     filename: "index_bundle.js",
     library: "securityUtils",
     libraryTarget: "umd",
+    globalObject: "this",
   },
   module: {
     rules: [

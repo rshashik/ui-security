@@ -1,14 +1,5 @@
-import loadSecurity, {
-  securityCache,
-  securityLoaded,
-  workerInstance,
-} from "./loadSecurity";
+import loadSecurity, { securityCache } from "./loadSecurity";
 import getSecurity from "./getSecurity";
+import applySecurity from "./applySecurity";
 
-export {
-  loadSecurity,
-  getSecurity,
-  securityCache,
-  securityLoaded,
-  workerInstance,
-};
+export { loadSecurity, getSecurity, applySecurity, securityCache };

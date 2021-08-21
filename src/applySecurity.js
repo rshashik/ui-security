@@ -1,22 +1,37 @@
-import { securityCache } from "./loadSecurity";
-import getSecurity from "./getSecurity";
-export default async function applySecurity(parentId) {
-  const observer = new MutationObserver(function (mutations_list) {
-    for (const mutation of mutations_list) {
-      for (const added_node of mutation.addedNodes) {
-        if (securityCache.has(added_node.id)) {
-          let access = await getSecurity(added_node.id);
-          added_node[access] = true;
-        }
-      }
+import {
+  securityCache,
+  securityLoaded,
+  _EVENT_UI_SECURITY_READY,
+} from "./loadSecurity";
+
+export default function applySecurity(pageId) {
+  return new Promise(function (resolve, reject) {
+    let page = document.getElementById(pageId);
+    let htmlNodeIterator = new HTMLNodeIterator();
+    if (securityLoaded) {
+      htmlNodeIterator.iterate(applySec, page);
+    } else {
+      window.addEventListener(_EVENT_UI_SECURITY_READY, () => {
+        htmlNodeIterator.iterate(applySec, page);
+        resolve();
+      });
     }
-    observer.disconnect();
   });
+}
+function applySec(element) {
+  if (securityCache.has(element.id)) {
+    element[securityCache.get(element.id)] = true;
+  }
+}
 
-  observer.observe(document.getElementById(parentId), {
-    subtree: true,
-    childList: true,
-  });
+function HTMLNodeIterator() {
+  this.iterate = function iterate(task, node) {
+    for (let x = 0; x < node.childNodes.length; x++) {
+      var childNode = node.childNodes[x];
 
-  return;
+      task(childNode);
+
+      if (childNode.childNodes.length > 0) this.iterate(task, childNode);
+    }
+  };
 }

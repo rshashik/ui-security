@@ -6,7 +6,7 @@
     <title>Demo</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="example-page">
       <form action="/">
         <h2>Employee Details</h2>
         <div>
@@ -41,35 +41,20 @@
       </form>
     </div>
 
-    <script src="./node_modules/ui-security/dist/index_bundle.js"></script>
+    <script src="../../dist/index_bundle.js"></script>
     <script>
-      securityUtils.loadSecurity(
-        {
-          url: "http://127.0.0.1:5500/examples/basic/db.json",
-          payload: {
-            method: "GET",
-            user: "hr",
-          },
+      const securityParam = {
+        url: "http://127.0.0.1:5500/examples/basic/db.json",
+        payload: {
+          method: "GET",
         },
-        { keyAttribute: "id", valueAttribute: "access" }
-      );
-      let deletebtn = document.getElementById("delete-btn");
-      deletebtn.disabled = securityUtils
-        .getSecurity("delete-btn")
-        .then((value) => (value === "disabled" ? true : false));
-      let cancelbtn = document.getElementById("cancel-btn");
-      cancelbtn.hidden = securityUtils
-        .getSecurity("cancel-btn")
-        .then((value) => (value === "hidden" ? true : false));
-      let designation = document.getElementById("designation-input");
-      console.log(designation);
-      designation.readOnly = securityUtils
-        .getSecurity("designation-input")
-        .then((value) => {
-          console.log(value === "readonly" ? true : false);
-          return value === "readonly" ? true : false;
-        });
-      // designation.readOnly = true;
+      };
+      const dataMap = {
+        keyAttribute: "id",
+        valueAttribute: "access",
+      };
+      securityUtils.loadSecurity(securityParam, dataMap);
+      securityUtils.applySecurity("example-page");
     </script>
   </body>
 </html>
