@@ -77,7 +77,7 @@ For example as per below configuration Desigation in readoly , Delete button is 
 ]
 ```
 
-![Screenshot](basic-example.PNG)
+![Screenshot](basic.PNG)
 
 ## Contributing
 
