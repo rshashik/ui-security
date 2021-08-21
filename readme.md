@@ -32,8 +32,12 @@ getSecurity(elementId);
 
 # Parameters
 
-1. securityParam: {type: object}(default null). This parametery is required. pass the valid URL and payload required to fetch the security details from the backend server. Internally these values are passed to fetch request .
-   For example:
+1. **securityParam:** {type: object}(default null). This parameter is required. pass the valid URL and payload required to fetch the security details from the backend server. Internally these values are passed to fetch request .
+
+payload object containing any custom settings that you want to apply to the request.
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
+  For example:
 
 ```js
 {
@@ -45,7 +49,7 @@ getSecurity(elementId);
 }
 ```
 
-2. dataMap: {type: object}(default null). This parametery is required. provide the keyAttribute and valueAttribute in response object. These values are stored in security cache as key-value pair.
+2. **dataMap:** {type: object}(default null). This parameter is required. provide the keyAttribute and valueAttribute in response object. These values are stored in security cache as key-value pair.
 
 ```js
 {
@@ -54,7 +58,7 @@ getSecurity(elementId);
 }
 ```
 
-3. optionParam: {type: object}(default null). This parametery is optional.This is provided for future extension.
+3. **optionParam:** {type: object}(default null). This parameter is optional.This is provided for future extension.
 
 # sample response
 
@@ -89,6 +93,3 @@ Please make sure to update tests as appropriate.
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-```
-
-```
