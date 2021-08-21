@@ -1,0 +1,14 @@
+[
+  {
+    "id": "designation-input",
+    "access": ""
+  },
+  {
+    "id": "delete-btn",
+    "access": "disabled"
+  },
+  {
+    "id": "cancel-btn",
+    "access": "hidden"
+  }
+]

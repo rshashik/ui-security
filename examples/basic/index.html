@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo</title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/">
+        <h2>Employee Details</h2>
+        <div>
+          <label for="fname-input">First Name</label>
+          <input type="text" id="fname-input" name="firstname" value="John" />
+        </div>
+        <br />
+        <div>
+          <label for="lname-input">Last Name</label>
+          <input type="text" id="lname-input" name="lastname" value="Doe" />
+        </div>
+        <br />
+        <div>
+          <label for="designation-input">Designation</label>
+          <input
+            type="text"
+            id="designation-input"
+            name="designation"
+            value="Application Developer"
+          />
+        </div>
+        <br />
+        <button id="submit-btn" type="submit" onclick="alert('saved')">
+          save
+        </button>
+        <button id="delete-btn" type="submit" onclick="alert('deleted')">
+          delete
+        </button>
+        <button id="cancel-btn" type="cancel" onclick="alert('cancelled')">
+          cancel
+        </button>
+      </form>
+    </div>
+
+    <script src="./node_modules/ui-security/dist/index_bundle.js"></script>
+    <script>
+      securityUtils.loadSecurity(
+        {
+          url: "http://127.0.0.1:5500/examples/basic/db.json",
+          payload: {
+            method: "GET",
+            user: "hr",
+          },
+        },
+        { keyAttribute: "id", valueAttribute: "access" }
+      );
+      let deletebtn = document.getElementById("delete-btn");
+      deletebtn.disabled = securityUtils
+        .getSecurity("delete-btn")
+        .then((value) => (value === "disabled" ? true : false));
+      let cancelbtn = document.getElementById("cancel-btn");
+      cancelbtn.hidden = securityUtils
+        .getSecurity("cancel-btn")
+        .then((value) => (value === "hidden" ? true : false));
+      let designation = document.getElementById("designation-input");
+      console.log(designation);
+      designation.readOnly = securityUtils
+        .getSecurity("designation-input")
+        .then((value) => {
+          console.log(value === "readonly" ? true : false);
+          return value === "readonly" ? true : false;
+        });
+      // designation.readOnly = true;
+    </script>
+  </body>
+</html>
