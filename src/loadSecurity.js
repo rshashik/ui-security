@@ -1,11 +1,14 @@
-export const _EVENT_UI_SECURITY_READY = "ui-secuirty-ready";
 export var securityLoaded = false;
 export const securityCache = new Map();
-export var workerInstance = 0;
+export let attributeMap = {};
+export let optionParam = {};
+let workerInstance = 0;
 let uiSecurityWorker;
+
 export default function loadSecurity(securityParam, dataMap, optionParam) {
   const { url, payload } = securityParam;
-  const { keyAttribute, valueAttribute } = dataMap;
+  const { key, value } = dataMap;
+  attributeMap = dataMap;
   if (!_isValidUrl() || !_isValidPayload() || !_isValidDataMap()) return;
 
   /**
@@ -38,7 +41,7 @@ export default function loadSecurity(securityParam, dataMap, optionParam) {
    * validate the dataMap.
    */
   function _isValidDataMap() {
-    if (keyAttribute && valueAttribute) {
+    if (key && value) {
       return true;
     } else {
       _showError("dataMap is not valid");
@@ -77,9 +80,7 @@ export default function loadSecurity(securityParam, dataMap, optionParam) {
    * Shows a message in the console.
    */
   function _showError(text) {
-    window.console &&
-      window.console["error"] &&
-      window.console["error"]("uiSecurity: " + text);
+    window?.console?.error("uiSecurity: " + text);
   }
 
   /**
@@ -97,7 +98,7 @@ export default function loadSecurity(securityParam, dataMap, optionParam) {
           workerInstance++;
         }
       } catch (e) {
-        console.error(e);
+        _showError("unable to create security worker.");
       }
       uiSecurityWorker.onmessage = function (e) {
         let uiSecurity = e.data;
@@ -110,16 +111,18 @@ export default function loadSecurity(securityParam, dataMap, optionParam) {
         }
         if (uiSecurity) {
           for (let indx in uiSecurity) {
-            securityCache.set(
-              uiSecurity[indx][keyAttribute],
-              uiSecurity[indx][valueAttribute]
-            );
+            securityCache.set(uiSecurity[indx][key], uiSecurity[indx][value]);
           }
         }
-        window.dispatchEvent(new CustomEvent(_EVENT_UI_SECURITY_READY));
+        window.dispatchEvent(new CustomEvent(getEventName()));
         resolve();
       };
       uiSecurityWorker.postMessage(securityParam);
     });
   }
+}
+
+export function getEventName() {
+  const _EVENT_UI_SECURITY_READY = "ui-security-ready";
+  return _EVENT_UI_SECURITY_READY;
 }

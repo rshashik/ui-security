@@ -1,37 +1,54 @@
 import {
   securityCache,
   securityLoaded,
-  _EVENT_UI_SECURITY_READY,
+  getEventName,
+  attributeMap,
 } from "./loadSecurity";
 
 export default function applySecurity(pageId) {
   return new Promise(function (resolve, reject) {
-    let page = document.getElementById(pageId);
-    let htmlNodeIterator = new HTMLNodeIterator();
     if (securityLoaded) {
-      htmlNodeIterator.iterate(applySec, page);
+      _traverseDOM(pageId);
+      resolve();
     } else {
-      window.addEventListener(_EVENT_UI_SECURITY_READY, () => {
-        htmlNodeIterator.iterate(applySec, page);
+      window.addEventListener(getEventName(), () => {
+        _traverseDOM(pageId);
         resolve();
       });
     }
   });
 }
-function applySec(element) {
-  if (securityCache.has(element.id)) {
-    element[securityCache.get(element.id)] = true;
+function _applyStyles(element) {
+  const { key } = attributeMap;
+  const value = securityCache.get(element[key]);
+  if (value && ["readOnly", "hidden", "disabled"].includes(value)) {
+    element[value] = true;
+  } else if (value && typeof value === "object") {
+    for (const [propertyName, propertyValue] of Object.entries(value)) {
+      element.style[propertyName] = propertyValue;
+    }
+  } else {
+    console.error(`${value} is not a valid value`);
   }
 }
 
-function HTMLNodeIterator() {
-  this.iterate = function iterate(task, node) {
-    for (let x = 0; x < node.childNodes.length; x++) {
-      var childNode = node.childNodes[x];
+function _traverseDOM(pageId) {
+  const nodeIterator = document.createNodeIterator(
+    document.getElementById(pageId),
+    NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: function (node) {
+        if (securityCache.has(node.id)) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      },
+    },
+    false
+  );
 
-      task(childNode);
+  let node;
 
-      if (childNode.childNodes.length > 0) this.iterate(task, childNode);
-    }
-  };
+  while ((node = nodeIterator.nextNode())) {
+    _applyStyles(node);
+  }
 }

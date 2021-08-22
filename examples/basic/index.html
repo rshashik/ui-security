@@ -7,20 +7,25 @@
   </head>
   <body>
     <div class="container" id="example-page">
-      <form action="/">
+      <form>
         <h2>Employee Details</h2>
         <div>
-          <label for="fname-input">First Name</label>
+          <label for="fname-input">First Name:</label>
           <input type="text" id="fname-input" name="firstname" value="John" />
         </div>
         <br />
         <div>
-          <label for="lname-input">Last Name</label>
+          <label for="lname-input">Last Name:</label>
           <input type="text" id="lname-input" name="lastname" value="Doe" />
         </div>
         <br />
         <div>
-          <label for="designation-input">Designation</label>
+          <label for="salary-input">Salary:</label>
+          <input type="number" id="salary-input" name="salary" value="56821" />
+        </div>
+        <br />
+        <div>
+          <label for="designation-input">Designation:</label>
           <input
             type="text"
             id="designation-input"
@@ -29,7 +34,7 @@
           />
         </div>
         <br />
-        <button id="submit-btn" type="submit" onclick="alert('saved')">
+        <button id="save-btn" type="submit" onclick="alert('saved')">
           save
         </button>
         <button id="delete-btn" type="submit" onclick="alert('deleted')">
@@ -50,8 +55,8 @@
         },
       };
       const dataMap = {
-        keyAttribute: "id",
-        valueAttribute: "access",
+        key: "id",
+        value: "access",
       };
       securityUtils.loadSecurity(securityParam, dataMap);
       securityUtils.applySecurity("example-page");

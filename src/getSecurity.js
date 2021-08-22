@@ -1,8 +1,4 @@
-import {
-  securityCache,
-  securityLoaded,
-  _EVENT_UI_SECURITY_READY,
-} from "./loadSecurity";
+import { securityCache, securityLoaded, getEventName } from "./loadSecurity";
 
 /**
  * Get the security value of HTML element.
@@ -21,7 +17,7 @@ function _getUISecurityPromise(id) {
     let cachedValue = _getSecurityCachedValue(id);
     if (cachedValue === null) {
       window.addEventListener(
-        _EVENT_UI_SECURITY_READY,
+        getEventName(),
         () => {
           cachedValue = _getSecurityCachedValue(id);
           resolve(cachedValue);

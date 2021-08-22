@@ -17,17 +17,13 @@ npm i ui-security
 Step1: load the secuirty data during app initialization.
 
 ```js
-import loadSecurity from "ui-security";
-
 loadSecurity(securityParam, dataMap, optionalParam);
 ```
 
-Step2: get the secuirty data to hide/disable HTML elements on page.
+Step2: apply secuirty for a page to hide/disable HTML elements on page.
 
 ```js
-import getSecurity from "ui-security";
-
-getSecurity(elementId);
+applySecurity(pageId);
 ```
 
 # Parameters
@@ -49,12 +45,12 @@ payload object containing any custom settings that you want to apply to the requ
 }
 ```
 
-2. **dataMap:** {type: object}(default null). This parameter is required. provide the keyAttribute and valueAttribute in response object. These values are stored in security cache as key-value pair.
+2. **dataMap:** {type: object}(default null). This parameter is required. provide the key attribute and value attribute in response object. These values are stored in security cache as key-value pair.
 
 ```js
 {
-  keyAttribute: "id",
-  valueAttribute:"access"
+  key: "id",
+  value:"access"
 }
 ```
 
@@ -68,20 +64,25 @@ For example as per below configuration Desigation in readoly , Delete button is 
 [
   {
     "id": "designation-input",
-    "access": ""
+    "access": "readOnly"
   },
   {
-    "id": "delete-btn",
+    "id": "save-btn",
     "access": "disabled"
   },
   {
-    "id": "cancel-btn",
+    "id": "delete-btn",
     "access": "hidden"
+  },
+  {
+    "id": "salary-input",
+    "access": { "filter": "blur(6px)" }
   }
 ]
+
 ```
 
-![Screenshot](basic.PNG)
+![Screenshot](basic-example.PNG)
 
 ## Contributing
 

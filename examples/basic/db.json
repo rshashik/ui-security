@@ -4,11 +4,15 @@
     "access": "readOnly"
   },
   {
-    "id": "delete-btn",
+    "id": "save-btn",
     "access": "disabled"
   },
   {
-    "id": "cancel-btn",
+    "id": "delete-btn",
     "access": "hidden"
+  },
+  {
+    "id": "salary-input",
+    "access": { "filter": "blur(6px)" }
   }
 ]
