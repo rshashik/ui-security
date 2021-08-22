@@ -45,11 +45,11 @@
         </button>
       </form>
     </div>
-
-    <script src="../../dist/index_bundle.js"></script>
+    <!-- make sure the path is correct. -->
+    <script src="node_modules/ui-security/dist/index_bundle.js"></script>
     <script>
       const securityParam = {
-        url: "http://127.0.0.1:5500/examples/basic/db.json",
+        url: "http://127.0.0.1:5500/examples/basic/db.json", //change the path as per requirement
         payload: {
           method: "GET",
         },

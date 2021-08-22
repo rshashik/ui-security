@@ -33,6 +33,7 @@ applySecurity(pageId);
 payload object containing any custom settings that you want to apply to the request.
 
 - https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
+  
   For example:
 
 ```js
@@ -58,7 +59,7 @@ payload object containing any custom settings that you want to apply to the requ
 
 # sample response
 
-For example as per below configuration Desigation in readoly , Delete button is hidden and save button is disabled and salary is blurred.
+For example as per below configuration Desigation in readOnly , Delete button is hidden and save button is disabled and salary is blurred.
 
 ```
 [
