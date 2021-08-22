@@ -58,7 +58,7 @@ payload object containing any custom settings that you want to apply to the requ
 
 # sample response
 
-For example as per below configuration Desigation in readoly , Delete button is disabled and Cancel button is hidden for the user.
+For example as per below configuration Desigation in readoly , Delete button is hidden and save button is disabled and salary is blurred.
 
 ```
 [
@@ -93,4 +93,3 @@ Please make sure to update tests as appropriate.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
