@@ -87,9 +87,6 @@ For example as per below configuration Desigation in readOnly , Delete button is
 
 ## Contributing
 
-Suggestion are more than welcome, not only for feature requests but also for coding style improvements. Let's make this a great library to make people's lives easier!
-
-Please make sure to update tests as appropriate.
 
 ## License
 
